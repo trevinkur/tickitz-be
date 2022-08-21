@@ -1,5 +1,3 @@
-const { addCinema } = require("../controller/cinemaController");
-const schedule = require("../model/schedule");
 const fs = require("fs")
 
 
