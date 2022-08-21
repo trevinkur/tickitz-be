@@ -4,7 +4,11 @@ module.exports = {
     get: function (req,res){
         return new Promise((resolve,reject) => {
             const {show_time_id} = req.query
-            db.query(`SELECT * FROM booking_seat 
+            db.query(`SELECT status.name as status, seat, price, 
+            show_time_id, booking_seat_id 
+            FROM booking_seat 
+            JOIN status
+            ON booking_seat.status_id = status.status_id 
             ${show_time_id ? "WHERE show_time_id=" + show_time_id : ""}` , (err,result) => {
                 if(err){
                     reject({
@@ -26,7 +30,7 @@ module.exports = {
     add: function(req,res) {
         return new Promise ((resolve,reject) => {
             const {show_time_id, seat, status_id, price} = req.body
-            db.query(`INSERT INTO booking_seat (show_time_id, seat, status_id, price) VALUES ('${show_time_id},' '${seat}','${status_id}', '${price}')`, (err, results)=> {
+            db.query(`INSERT INTO booking_seat (show_time_id, seat, status_id, price) VALUES ('${show_time_id}', '${seat}','${status_id}', '${price}')`, (err, results)=> {
                 if(err) {
                     console.log(err)
                   reject({
