@@ -82,8 +82,8 @@ module.exports = {
         return new Promise ((resolve,reject) => {
             
             const {seat, show_time_id, user_id, } = req.body
-            db.query(`INSERT INTO booking (seat, show_time_id, user_id, status) 
-                VALUES ('${seat}', '${show_time_id}', '${user_id}' status='in_cart' );
+            db.query(`INSERT INTO booking (seat, show_time_id, user_id) 
+                VALUES ('${seat}', '${show_time_id}', '${user_id}');
                 `, (err, results)=> {
                     if(err) {
                         console.log(err)
