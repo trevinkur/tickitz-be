@@ -117,10 +117,11 @@ module.exports = {
                 db.query(`UPDATE booking, booking_seat SET booking_seat.status_id=${status_id},
                 payment_method=${payment_method},
                 booking.status="active"
-                WHERE booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat" AND 
-                booking.user_id=${req.params.id}"`, (err, results)=> {
-                    console.log(err)
+                WHERE booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat AND 
+                booking.user_id=${req.params.id}`, (err, results)=> {
+                    
                     if(err) {
+                        console.log(err)
                       reject({
                         message: "ERROR, your input is wrong",
                         status: 404
