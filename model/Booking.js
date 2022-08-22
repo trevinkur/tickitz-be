@@ -2,6 +2,7 @@ const db = require("../helper/db_connection.js")
 
 module.exports = {
     getById: function (req,res){
+        const [status] =req.query
         return new Promise((resolve,reject) => {
             console.log("hello")
             db.query(`SELECT CONCAT(users.first_name, " ", users.last_name) AS fullname,
@@ -24,8 +25,9 @@ module.exports = {
                   ON show_time.schedule_id = schedule.schedule_id
                 JOIN movies
                   ON schedule.movie_id = movies.movie_id 
-                WHERE users.user_id = "${req.params.id}"
-                GROUP BY users.user_id
+                WHERE users.user_id = "${req.params.id}" 
+                ${status ? `AND booking.status = '${status}'` : ''}
+                GROUP BY users.user_id, booking.update_at
                 ` , (err,result) => {
                 if(err) {
                     console.log(err)
@@ -101,15 +103,19 @@ module.exports = {
 
     update: function(req,res) {
         return new Promise ((resolve,reject) => {
-            db.query(`SELECT * FROM booking WHERE booking_id="${req.params.id}"`, (err,result) => {
+            db.query(`SELECT * FROM booking 
+                JOIN booking_seat
+                  ON booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat 
+                WHERE booking_id="${req.params.id}"`, (err,result) => {
                 const oldData = {
                     ...result[0],
                     ...req.body
                 }
               
-                const {seat, show_time_id, user_id}  = oldData
-                db.query(`UPDATE booking SET seat="${seat}",show_time_id="${show_time_id}", price="${user_id}}"
-                WHERE booking_id="${req.params.id}"`, (err, results)=> {
+                const {payment_method, status_id}  = oldData
+                db.query(`UPDATE booking, booking_seat SET booking_seat.status_id=${status_id}, payment_method=${payment_method}}"
+                WHERE booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat" AND 
+                booking.user_id=${req.params.id}"`, (err, results)=> {
                     console.log(err)
                     if(err) {
                       reject({
