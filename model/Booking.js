@@ -2,7 +2,7 @@ const db = require("../helper/db_connection.js")
 
 module.exports = {
     getById: function (req,res){
-        const [status] =req.query
+        const {status} = req.query
         return new Promise((resolve,reject) => {
             console.log("hello")
             db.query(`SELECT CONCAT(users.first_name, " ", users.last_name) AS fullname,
