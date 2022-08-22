@@ -7,7 +7,7 @@ module.exports = {
             const result = await Cinema.get(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 

@@ -7,7 +7,7 @@ module.exports = {
             const result = await BookingSeat.get(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -16,7 +16,7 @@ module.exports = {
                 const result = await BookingSeat.add(req,res)
                 return res.send(result)
             } catch(err) {
-                res.status(404).send(err)
+                res.status(err.status).send(err)
             }
     },
     
@@ -25,7 +25,7 @@ module.exports = {
             const result = await BookingSeat.update(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 

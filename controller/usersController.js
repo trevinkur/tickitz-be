@@ -7,7 +7,7 @@ module.exports = {
             const result = await User.get(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -17,7 +17,7 @@ module.exports = {
             const result = await User.getId(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -26,7 +26,7 @@ module.exports = {
                 const result = await User.add(req,res)
                 return res.send(result)
             } catch(err) {
-                res.status(404).send(err)
+                res.status(err.status).send(err)
             }
     },
     
@@ -36,7 +36,7 @@ module.exports = {
             const result = await User.update(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -45,7 +45,7 @@ module.exports = {
             const result = await User.removeById(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 }

@@ -7,7 +7,7 @@ module.exports = {
             const result = await Schedule.get(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -17,7 +17,7 @@ module.exports = {
             const result = await Schedule.getByMovieId(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
                 const result = await Schedule.add(req,res)
                 return res.send(result)
             } catch(err) {
-                res.status(404).send(err)
+                res.status(err.status).send(err)
             }
     },
     
@@ -36,7 +36,7 @@ module.exports = {
             const result = await Schedule.update(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -45,7 +45,7 @@ module.exports = {
             const result = await Schedule.removeById(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 

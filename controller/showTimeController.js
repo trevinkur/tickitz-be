@@ -7,7 +7,7 @@ module.exports = {
             const result = await ShowTime.get(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -17,7 +17,7 @@ module.exports = {
             const result = await ShowTime.getByCinemaId(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
                 const result = await ShowTime.add(req,res)
                 return res.send(result)
             } catch(err) {
-                res.status(404).send(err)
+                res.status(err.status).send(err)
             }
     },
     
@@ -36,7 +36,7 @@ module.exports = {
             const result = await ShowTime.update(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -45,7 +45,7 @@ module.exports = {
             const result = await ShowTime.updateById(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -54,7 +54,7 @@ module.exports = {
             const result = await ShowTime.removeById(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(404).send(err)
+            res.status(err.status).send(err)
         }
     },
 

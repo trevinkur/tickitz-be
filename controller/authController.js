@@ -7,7 +7,7 @@ module.exports = {
             const result = await Auth.login(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
@@ -17,7 +17,7 @@ module.exports = {
             const result = await Auth.register(req,res)
             return res.send(result)
         } catch(err) {
-            res.status(500).send(err)
+            res.status(err.status).send(err)
         }
     },
 
