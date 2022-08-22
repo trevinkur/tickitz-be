@@ -11,7 +11,7 @@ module.exports = {
                 GROUP_CONCAT(booking_seat.seat) AS seat,
                 cinema.cinema_name,
                 show_time.schedule_id, show_time.show_time,
-                schedule.schedule, movies.title
+                schedule.schedule, movies.title, booking.status AS status
                 FROM booking
                 JOIN booking_seat
                   ON booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat
@@ -27,7 +27,8 @@ module.exports = {
                   ON schedule.movie_id = movies.movie_id 
                 WHERE users.user_id = "${req.params.id}" 
                 ${status ? `AND booking.status = '${status}'` : ''}
-                GROUP BY users.user_id, booking.update_at
+                GROUP BY users.user_id ${status === "active" ? ',booking.update_at' : ''}
+                ${status === "active" ? 'ORDER BY booking.update_at DESC' : ''}
                 ` , (err,result) => {
                 if(err) {
                     console.log(err)
