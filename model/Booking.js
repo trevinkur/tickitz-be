@@ -26,9 +26,9 @@ module.exports = {
                 JOIN movies
                   ON schedule.movie_id = movies.movie_id 
                 WHERE users.user_id = "${req.params.id}" 
-                ${status ? `AND booking.status = '${status}'` : ''}
-                GROUP BY users.user_id ${status === "active" ? ',booking.update_at' : ''}
-                ${status === "active" ? 'ORDER BY booking.update_at DESC' : ''}
+                ${status === 'history' ? `AND booking.status = 'active' OR booking.status='expired'` : status === 'in_cart' ? `booking.status ='in_cart'`: ''}
+                GROUP BY users.user_id ${status === "history" ? ',booking.update_at' : ''}
+                ${status === "history" ? 'ORDER BY booking.update_at DESC' : ''}
                 ` , (err,result) => {
                 if(err) {
                     console.log(err)
@@ -118,7 +118,7 @@ module.exports = {
                 payment_method=${payment_method},
                 booking.status="active"
                 WHERE booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat AND 
-                booking.user_id=${req.params.id}`, (err, results)=> {
+                booking.user_id=${req.params.id} AND booking.status="in_cart"`, (err, results)=> {
                     
                     if(err) {
                         console.log(err)
