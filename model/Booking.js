@@ -82,8 +82,8 @@ module.exports = {
         return new Promise ((resolve,reject) => {
             
             const {seat, show_time_id, user_id, } = req.body
-            db.query(`INSERT INTO booking (seat, show_time_id, user_id) 
-                VALUES ('${seat}', '${show_time_id}', '${user_id}' );
+            db.query(`INSERT INTO booking (seat, show_time_id, user_id, status) 
+                VALUES ('${seat}', '${show_time_id}', '${user_id}' status='in_cart' );
                 `, (err, results)=> {
                     if(err) {
                         console.log(err)
@@ -113,8 +113,10 @@ module.exports = {
                     ...req.body
                 }
               
-                const {payment_method, status_id}  = oldData
-                db.query(`UPDATE booking, booking_seat SET booking_seat.status_id=${status_id}, payment_method=${payment_method}}"
+                const {payment_method, status_id }  = oldData
+                db.query(`UPDATE booking, booking_seat SET booking_seat.status_id=${status_id},
+                payment_method=${payment_method},
+                booking.status="active"
                 WHERE booking.show_time_id = booking_seat.show_time_id AND booking.seat = booking_seat.seat" AND 
                 booking.user_id=${req.params.id}"`, (err, results)=> {
                     console.log(err)

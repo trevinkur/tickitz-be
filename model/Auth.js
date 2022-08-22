@@ -25,7 +25,7 @@ module.exports = {
                          })
                     }
                     if(result) {
-                        const token = jwt.sign({user_id: results[0].user_id, role: results[0].role }, process.env.PRIVATE_KEY, {expiresIn: "60s"})
+                        const token = jwt.sign({user_id: results[0].user_id, role: results[0].role }, process.env.PRIVATE_KEY, {expiresIn: "1d"})
                         resolve({
                             message: "Success",
                             status: 200,
