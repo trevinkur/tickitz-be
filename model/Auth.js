@@ -13,6 +13,7 @@ module.exports = {
                 if(results.length === 0) {
                     reject({
                         message: "Email tidak ditemukan",
+                        status: 400
                      })
                 }
                  bcrypt.compare(password, hash, function(err, result) {
@@ -37,6 +38,7 @@ module.exports = {
                     } else {
                         reject({
                             message: "Email/Password is wrong",
+                            status: 400
                          })
                     }
                 })

@@ -73,7 +73,7 @@ module.exports = {
                 if(err) {
                     reject({
                         message: "ERROR, Server is down",
-                        status: "500"
+                        status: 500
                     })
                 }
                 
@@ -94,7 +94,7 @@ module.exports = {
                                 console.log(err)
                         reject({
                             message: "ERROR, Server is down",
-                            status: "500"
+                            status: 500
                         })
                     }
     
