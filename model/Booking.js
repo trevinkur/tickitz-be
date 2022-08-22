@@ -9,7 +9,7 @@ module.exports = {
                 SUM(booking_seat.price) AS totalPayment,
                 COUNT(booking_id) as tickets,
                 GROUP_CONCAT(booking_seat.seat) AS seat,
-                cinema.cinema_name,
+                cinema.cinema_name, cinema.cinema_logo,
                 show_time.schedule_id, show_time.show_time,
                 schedule.schedule, movies.title, booking.status AS status
                 FROM booking
