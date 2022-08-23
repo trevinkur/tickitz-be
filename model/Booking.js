@@ -26,7 +26,7 @@ module.exports = {
                 JOIN movies
                   ON schedule.movie_id = movies.movie_id 
                 WHERE users.user_id = "${req.params.id}" 
-                ${status === 'history' ? `AND booking.status = 'active' OR booking.status='expired'` : status === 'in_cart' ? `booking.status ='in_cart'`: ''}
+                ${status === 'history' ? `AND booking.status = 'active' OR booking.status='expired'` : status === 'in_cart' ? `AND booking.status ='in_cart'`: ''}
                 GROUP BY users.user_id ${status === "history" ? ',booking.update_at' : ''}
                 ${status === "history" ? 'ORDER BY booking.update_at DESC' : ''}
                 ` , (err,result) => {
