@@ -94,7 +94,7 @@ module.exports = {
                         }
                     }
                 
-                    const {first_name, last_name,password, email, phone_number, profile_pitcure}  = oldData
+                    const {first_name, last_name,password, email, phone_number, profile_pitcure, deviceToken}  = oldData
                     bcrypt.hash(password, 10, (err, hash) => {
                         if(err) {
                             reject({
@@ -103,7 +103,7 @@ module.exports = {
                            })
                           }
                         db.query(`UPDATE users SET first_name="${first_name}", last_name="${last_name}", password="${hash}", email="${email}", 
-                        phone_number="${phone_number}", profile_pitcure="${profile_pitcure}"
+                        phone_number="${phone_number}", profile_pitcure="${profile_pitcure}, deviceToken='${deviceToken}'
                         WHERE user_id="${req.params.id}"`, (err, results)=> {
                             console.log(first_name, "first")
                             if(err) {
@@ -148,9 +148,9 @@ module.exports = {
                     }
                 }
               
-                const {first_name, last_name, email, phone_number, profile_pitcure}  = oldData
+                const {first_name, last_name, email, phone_number, profile_pitcure, deviceToken}  = oldData
                 db.query(`UPDATE users SET first_name="${first_name}", last_name="${last_name}", email="${email}", 
-                phone_number="${phone_number}", profile_pitcure="${profile_pitcure}"
+                phone_number="${phone_number}", profile_pitcure="${profile_pitcure}, deviceToken='${deviceToken}'
                 WHERE user_id="${req.params.id}"`, (err, results)=> {
                     console.log(err)
                     if(err) {
