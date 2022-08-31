@@ -63,12 +63,16 @@ module.exports = {
 
     getByMovieId: function (req,res){
         return new Promise((resolve,reject) => {
-            const {place, schedule, cinema, limit=6, page=1} = req.query
+            const {place, schedule, cinema, limit=6, page=1, groupBy} = req.query
             const offset = (page - 1) * limit
 
             db.query(`SELECT * from schedule 
-            WHERE movie_id = "${req.params.id}" AND place = "${place}" 
-            AND schedule = "${schedule}"  ${cinema ? "AND cinema_id =" + cinema : ""}
+            WHERE movie_id = "${req.params.id}"
+            ${place ? `AND place = '${place}'` : ''} 
+            ${schedule ? `AND schedule = '${schedule}'` : ''}    
+            ${cinema ? "AND cinema_id =" + cinema : ""}
+            ${groupBy === 'place' ? 'GROUP BY schedule.place' : ''}
+            ${groupBy === 'schedule' ? 'GROUP BY schedule.schedule' : ''}
             `, (err, results) => {
                 if(err) {
                     reject({
@@ -88,7 +92,13 @@ module.exports = {
                         ON schedule.cinema_id = cinema.cinema_id
                     JOIN movies 
                         ON schedule.movie_id = movies.movie_id
-                    WHERE movies.movie_id = "${req.params.id}" AND place = "${place}" AND schedule = "${schedule}"  ${cinema ? "AND cinema.cinema_id =" + cinema : ""}
+                    WHERE movies.movie_id = "${req.params.id}" 
+                    ${place ? `AND place = '${place}'` : ''} 
+                    ${schedule ? `AND schedule = '${schedule}'` : ''}  
+                    ${cinema ? "AND cinema.cinema_id =" + cinema : ""}
+                    ${place || cinema || schedule ? '' : 'GROUP BY schedule.place' }
+                    ${groupBy === 'place' ? 'GROUP BY schedule.place' : ''}
+                    ${groupBy === 'schedule' ? 'GROUP BY schedule.schedule' : ''}
                     LIMIT ${limit} OFFSET ${offset}` , (err,result) => {
                             if(err){
                                 console.log(err)
