@@ -9,10 +9,16 @@ module.exports = {
             if(!admin.apps.length) {
                 admin.initializeApp({
                     credential: admin.credential.cert({
+                        type: 'service_account',
                         client_email: process.env.FIREBASE_CLIENT_EMAIL,
                         private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
                         project_id: process.env.FIREBASE_PROJECT_ID,
-                        private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID
+                        private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+                        auth_uri: process.env.AUTH_URI,
+                        token_uri: process.env.TOKEN_URI,
+                        client_id: process.env.CLIENT_ID,
+                        auth_provider_x509_cert_url: process.env.AUTH_PROVIDER,
+                        client_x509_cert_url: process.env.CLIENT_CERT
                     })
                 })
             }
@@ -44,7 +50,18 @@ module.exports = {
             const {title, body } =  req.body
             if(!admin.apps.length) {
                 admin.initializeApp({
-                    credential: admin.credential.cert(serviceAccount)
+                    credential: admin.credential.cert({
+                        type: 'service_account',
+                        client_email: process.env.FIREBASE_CLIENT_EMAIL,
+                        private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+                        project_id: process.env.FIREBASE_PROJECT_ID,
+                        private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+                        auth_uri: process.env.AUTH_URI,
+                        token_uri: process.env.TOKEN_URI,
+                        client_id: process.env.CLIENT_ID,
+                        auth_provider_x509_cert_url: process.env.AUTH_PROVIDER,
+                        client_x509_cert_url: process.env.CLIENT_CERT
+                    })
                 })
             }
             const tokens = await Notif.getAllUserToken(req,res)
