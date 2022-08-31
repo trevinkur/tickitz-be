@@ -96,7 +96,6 @@ module.exports = {
                     ${place ? `AND place = '${place}'` : ''} 
                     ${schedule ? `AND schedule = '${schedule}'` : ''}  
                     ${cinema ? "AND cinema.cinema_id =" + cinema : ""}
-                    ${place || cinema || schedule ? '' : 'GROUP BY schedule.place' }
                     ${groupBy === 'place' ? 'GROUP BY schedule.place' : ''}
                     ${groupBy === 'schedule' ? 'GROUP BY schedule.schedule' : ''}
                     LIMIT ${limit} OFFSET ${offset}` , (err,result) => {
