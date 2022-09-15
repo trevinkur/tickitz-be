@@ -76,7 +76,9 @@ some technology used in this project.
 
 [Demo API](https://urchin-app-b7qha.ondigitalocean.app/api/v1/movies)
 
-
+```sh
+https://urchin-app-b7qha.ondigitalocean.app/api/v1/movies
+```
 
 Clone this repo
  
