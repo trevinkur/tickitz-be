@@ -7,7 +7,10 @@ module.exports = {
             if(req.file.size > 1000000) {
                 fs.unlinkSync(`./public/${req.file.filename}`)
                 //  res.status(400).send({message: "File terlalu besar"})
-                reject({message: "File terlalu besar"})
+                reject({
+                    message: "File terlalu besar",
+                    status: 400
+                })
             }
             format = ["jpeg", "jpg", "png", "webv"]
             error = []
@@ -21,7 +24,10 @@ module.exports = {
             if(error.length === 0) {
                 fs.unlinkSync(`./public/${req.file.filename}`)
                 // res.status(400).send({message: "format tidak didukung"}).end()
-                reject({message: "format tidak didukung"})
+                reject({
+                    message: "format tidak didukung",
+                    status: 400
+                })
             }
             
             resolve()

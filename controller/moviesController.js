@@ -44,7 +44,7 @@ module.exports = {
     updateMovies: async function(req,res) {
         
         try {
-            
+            await validasi.img(req,res)
             const result = await Movies.update(req,res)
             return res.send(result)
         } catch(err) {

@@ -10,12 +10,12 @@ module.exports = {
         return new Promise((resolve,reject) => {
             const {title, sortby='release_date', order="desc", limit=5, page=1} = req.query
             const offset = (page - 1) * limit
-            
+            console.log(title)
             db.query(`SELECT * FROM movies 
             WHERE title LIKE "%${title}%"
             ORDER BY ${sortby} ${order}`,(err,results) => {
 
-                
+                // console.log(results)
                 if(err) {    
                     validasi.movieSort(sortby, order, limit, page, reject)    
                     reject({
@@ -36,11 +36,14 @@ module.exports = {
                     WHERE title LIKE "%${title}%"
                     ORDER BY ${sortby} ${order}
                     LIMIT ${limit} OFFSET ${offset}` , (err,result) => {
+                    console.log(result)
+
                     if(err){
                         validasi.movieSort(sortby, order, limit, page, reject)
                         reject({
                             message: "ERROR, Server is down",
-                            status: 500
+                            status: 500,
+                            detail: err
                         })
                     }
                     resolve({
