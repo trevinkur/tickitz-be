@@ -16,7 +16,7 @@
 
 Berbagai API untuk mengelola Database Yang digunakan untuk Aplikasi Tickitz. 
 Aplikasinya sendiri merupakan aplikasi untuk memesan ticket di berbagai cinema yang ada dalam database.
-Aplikasi ini dibangun meggunakan Node.js dengan bantuan framework Express.js dangem menggunakan DBMS MySQL
+Aplikasi ini dibangun meggunakan Node.js dengan bantuan framework Express.js dengan menggunakan DBMS MySQL
 
 Base URL 
 
